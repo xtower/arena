@@ -1,11 +1,11 @@
 package com.example.arena;
 
-public class Halfing extends Creature {
+public class Halfling extends Creature {
 
-  public Halfing(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
-                 Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
-                 Integer lifePoints) {
+  public Halfling(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
+                  Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
+                  Integer lifePoints) {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
-          lifePoints, CreatureType.HALFING);
+          lifePoints, CreatureType.HALFLING);
   }
 }

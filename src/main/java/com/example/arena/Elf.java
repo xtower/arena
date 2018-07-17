@@ -1,6 +1,6 @@
 package com.example.arena;
 
-public class Elf extends Creature{
+public class Elf extends Creature {
 
 
   public Elf(Integer strength, Integer dexterity, Integer initiative, Integer velocity,

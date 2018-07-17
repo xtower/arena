@@ -3,7 +3,7 @@ package com.example.arena;
 public enum CreatureType {
   DWARF,
   ELF,
-  HALFING,
+  HALFLING,
   HUMAN,
   ORC,
   TROLL

@@ -1,6 +1,7 @@
 package com.example.arena;
 
 public abstract class Creature {
+
   private Integer strength;
   private Integer dexterity;
   private Integer initiative;
@@ -57,6 +58,10 @@ public abstract class Creature {
     return lifePoints;
   }
 
+  public CreatureType getCreatureType() {
+    return creatureType;
+  }
+
   public void setStrength(Integer strength) {
     this.strength = strength;
   }
@@ -67,14 +72,6 @@ public abstract class Creature {
 
   public void setInitiative(Integer initiative) {
     this.initiative = initiative;
-  }
-
-  public CreatureType getCreatureType() {
-    return creatureType;
-  }
-
-  public void setCreatureType(CreatureType creatureType) {
-    this.creatureType = creatureType;
   }
 
   public void setVelocity(Integer velocity) {
@@ -97,6 +94,10 @@ public abstract class Creature {
     this.lifePoints = lifePoints;
   }
 
+  public void setCreatureType(CreatureType creatureType) {
+    this.creatureType = creatureType;
+  }
+
   @Override
   public String toString() {
     return "Creature{" +
@@ -109,7 +110,7 @@ public abstract class Creature {
            "\nnumberOfDodges=" + numberOfDodges +
            "\nlifePoints=" + lifePoints +
            "\ncreatureType='" + creatureType + '\'' +
-           "\n\nsuper='" + super.toString() +
-           '}';
+           "\nsuper='" + super.toString() +
+           "}\n\n";
   }
 }
