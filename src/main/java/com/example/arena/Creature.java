@@ -1,6 +1,6 @@
 package com.example.arena;
 
-public abstract class Creature {
+public abstract class Creature implements Fightable{
 
   private Integer strength;
   private Integer dexterity;
