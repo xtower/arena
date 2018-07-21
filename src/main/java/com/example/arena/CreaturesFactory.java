@@ -8,20 +8,20 @@ public class CreaturesFactory {
 
   private Random random = new Random();
 
-  Creature generate(CreatureType creatureType, int srrength, int value) {
+  Creature generate(CreatureType creatureType, int lifePoints, int value) {
     switch (creatureType) {
       case ELF:
-        return new Elf(value, value, value, value, value, value, value, value);
+        return new Elf(value, value, value, value, value, value, value, lifePoints);
       case ORC:
-        return new Orc(value, value, value, value, value, value, value, value);
+        return new Orc(value, value, value, value, value, value, value, lifePoints);
       case DWARF:
-        return new Dwarf(value, value, value, value, value, value, value, value);
+        return new Dwarf(value, value, value, value, value, value, value, lifePoints);
       case HUMAN:
-        return new Human(value, value, value, value, value, value, value, value);
+        return new Human(value, value, value, value, value, value, value, lifePoints);
       case TROLL:
-        return new Troll(value, value, value, value, value, value, value, value);
+        return new Troll(value, value, value, value, value, value, value, lifePoints);
       case HALFLING:
-        return new Halfling(value, value, value, value, value, value, value, value);
+        return new Halfling(value, value, value, value, value, value, value, lifePoints);
     }
 
     return null;
@@ -33,11 +33,11 @@ public class CreaturesFactory {
   }
 
   Creature generateRandomCreature() {
-    return generate(randomCreatureType(), random(4, 20), random(10, 20));
+    return generate(randomCreatureType(), random(40, 60), random(1, 9));
   }
 
   int random(int min, int max) {
-    return min + new Random().nextInt(max + 1 - min);
+    return min + this.random.nextInt(max + 1 - min);
   }
 
   List<Creature> randomCreatureList(int listSize) {
