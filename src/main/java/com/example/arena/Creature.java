@@ -124,13 +124,37 @@ public abstract class Creature implements Fightable {
 
   @Override
   public int attack(Creature target) {
-    if (this.dexterity > random(1, 10)) {
-      int dmg = this.strength + random(0, 3);
-      System.out.println("Successfull attack :" + dmg + " damage!");
-      return dmg;
+    BodyPart damagedBodyPart;
+    int bonusDmg = 0;
+
+    int potentialDmg = 0;
+    try {
+      damagedBodyPart = target.hitWhat();
+      bonusDmg = damagedBodyPart.getDmgBonus();
+    } catch (Exception e){
+      //hmmm
     }
-    System.out.println("Failed attack");
+
+    if(damagedBodyPart == null) {
+      if (this.dexterity > random(1, 10)) {
+        System.out.println("Creature was hit");
+        potentialDmg = this.strength + random(0, 3) +;
+        System.out.println("Successfull attack :" + dmg + " damage!");
+        return dmg;
+      }
+      System.out.println("Failed attack");
+    } else {
+      potentialDmg = this.strength +
+    }
     return 0;
+
+    /*
+      - jesli udalo sie w cos trafic wylicz potencjalne obrazenia jak do tej pory i dodaj premie za czesc ciala
+  - jesli nie udalo sie w nic trafic, sprobuj uderzyc ponownie - ponowne uderzenie udaje sie, jesli dexterity > wylosowana liczba z przedzialu 1-10
+  - zwroc wynik ataku (trafiona czesc ciala, potencjalne obrazenia, za ktorym razem sie udalo)
+  - wypisuj komunikaty informujace o tym co sie dzieje
+
+     */
   }
 
   @Override
@@ -156,5 +180,20 @@ public abstract class Creature implements Fightable {
 
   public boolean isAlive() {
     return this.lifePoints > 0;
+  }
+
+  public BodyPart hitWhat() throws NullPointerException {
+    int r = random(0, 99);
+    int s = 0;
+
+    for (BodyPart p : BodyPart.values()) {
+      s += p.getHitProbability();
+
+      if (s >= r) {
+        return p;
+      }
+    }
+
+    throw new NullPointerException();
   }
 }

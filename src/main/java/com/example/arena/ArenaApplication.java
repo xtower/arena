@@ -1,10 +1,26 @@
 package com.example.arena;
 
+import com.sun.javafx.collections.MappingChange;
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class ArenaApplication {
+
+  public static void upMap(Map<String, Integer> map, String key){
+    int v;
+
+    if(map.containsKey(key)) {
+      v = map.get(key) + 1;
+    } else {
+      v = 1;
+    }
+
+    map.put(key,v);
+  }
 
   public static void main(String[] args) {
     //Creature kaziu = new Human(1,1,1,1,1, 1, 1,1);
@@ -41,7 +57,7 @@ public class ArenaApplication {
 //      System.out.println(c);
 //    }
 
-    Creature creature1 = list.get(0);
+    /*Creature creature1 = list.get(0);
     Creature creature2 = list.get(1);
     int rounds = 12;
     while (rounds > 0) {
@@ -69,6 +85,25 @@ public class ArenaApplication {
 
     System.out.println(creature1);
     System.out.println(creature2);
+    */
+
+    Creature c = new Troll(10,9,6,6,6,6,6,100);
+
+    Map<String, Integer> results = new HashMap<String, Integer>();
+
+    for(int i = 0; i<10000; i++) {
+      //System.out.print("Tura: " + i + " : ");
+      try{
+        BodyPart bp = c.hitWhat();
+        //System.out.println(bp);
+        upMap(results,bp.toString());
+      } catch(NullPointerException e){
+        //System.out.println("NO HIT!");
+        upMap(results,"no hit");
+      }
+    }
+
+    System.out.println(results);
   }
 
 
