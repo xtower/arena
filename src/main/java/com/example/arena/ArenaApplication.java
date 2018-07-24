@@ -135,14 +135,14 @@ public class ArenaApplication {
     System.out.println(
         "CREATURE that dealt the most powerfull hit (" + fs.getMostPowerfulHitDmg() + "dmg!!):"
         + fs.getMostPowerfulHitCreature());
-    System.out.println("How many times each body part was hit: " + fs.getBodyPartHit());
+    Map<String,Integer> hitMap = fs.getBodyPartHit();
+    System.out.println("How many times each body part was hit: " + hitMap);
 
-    System.out.println("Most hit bodyPart: " + getMaxFromMap(fs.getBodyPartHit()));
+    String maxKey = getMaxFromMap(hitMap);
+    System.out.println("Most hit bodyPart: " + maxKey + " : " + hitMap.get(maxKey));
   }
 
-  private static Map<String, Integer> getMaxFromMap(Map<String, Integer> map) {
-    Map<String, Integer> ret = new HashMap<>();
-
+  private static String getMaxFromMap(Map<String, Integer> map) {
     String maxKey = "none";
     Integer maxInt = 0;
 
@@ -152,7 +152,7 @@ public class ArenaApplication {
         maxInt = map.get(s);
       }
     }
-    ret.put(maxKey,maxInt);
-    return ret;
+
+    return maxKey;
   }
 }
