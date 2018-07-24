@@ -6,21 +6,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class ArenaApplication {
 
-  public static void upMap(Map<String, Integer> map, String key){
+  public static void upMap(Map<String, Integer> map, String key) {
     int v;
 
-    if(map.containsKey(key)) {
+    if (map.containsKey(key)) {
       v = map.get(key) + 1;
     } else {
       v = 1;
     }
 
-    map.put(key,v);
+    map.put(key, v);
   }
+
 
   public static void main(String[] args) {
     //Creature kaziu = new Human(1,1,1,1,1, 1, 1,1);
@@ -87,24 +91,68 @@ public class ArenaApplication {
     System.out.println(creature2);
     */
 
-    Creature c = new Troll(10,9,6,6,6,6,6,100);
+    //Test losowania czesci ciala
+    Creature c = new Troll(10, 9, 6, 6, 6, 6, 6, 100);
 
     Map<String, Integer> results = new HashMap<String, Integer>();
 
-    for(int i = 0; i<10000; i++) {
+    for (int i = 0; i < 10000; i++) {
       //System.out.print("Tura: " + i + " : ");
-      try{
+      try {
         BodyPart bp = c.hitWhat();
         //System.out.println(bp);
-        upMap(results,bp.toString());
-      } catch(NullPointerException e){
+        upMap(results, bp.toString());
+      } catch (NoBodyPartHitArenaException e) {
         //System.out.println("NO HIT!");
-        upMap(results,"no hit");
+        upMap(results, "no hit");
       }
     }
 
     System.out.println(results);
+
+    //Test nowego FightService
+
+    FightService fs = new FightService();
+
+    Creature creature1 = list.get(0);
+    Creature creature2 = list.get(1);
+
+    System.out.println("2 Creatures start to fight:\n" + creature1 + " AND \n" + creature2);
+
+    System.out.println("Fight is to the death or for 10 rounds");
+    int round = 1;
+    while (round <= 10 && creature1.isAlive() && creature2.isAlive()) {
+      System.out.println("Round " + round + " FIGHT!");
+      fs.fight(creature1, creature2);
+      if (creature1.isAlive() && creature2.isAlive()) {
+        System.out.println("Retaliate!");
+        fs.fight(creature2, creature1);
+      }
+      round++;
+    }
+
+    System.out.println("THE END");
+    System.out.println(
+        "CREATURE that dealt the most powerfull hit (" + fs.getMostPowerfulHitDmg() + "dmg!!):"
+        + fs.getMostPowerfulHitCreature());
+    System.out.println("How many times each body part was hit: " + fs.getBodyPartHit());
+
+    System.out.println("Most hit bodyPart: " + getMaxFromMap(fs.getBodyPartHit()));
   }
 
+  private static Map<String, Integer> getMaxFromMap(Map<String, Integer> map) {
+    Map<String, Integer> ret = new HashMap<>();
 
+    String maxKey = "none";
+    Integer maxInt = 0;
+
+    for (String s : map.keySet()) {
+      if (map.get(s) > maxInt) {
+        maxKey = s;
+        maxInt = map.get(s);
+      }
+    }
+    ret.put(maxKey,maxInt);
+    return ret;
+  }
 }
