@@ -133,7 +133,7 @@ public class ArenaApplication {
 
     System.out.println("THE END");
     System.out.println(
-        "CREATURE that dealt the most powerfull hit (" + fs.getMostPowerfulHitDmg() + "dmg!!):"
+        "CREATURE that dealt the most powerful hit (" + fs.getMostPowerfulHitDmg() + "dmg!!):"
         + fs.getMostPowerfulHitCreature());
     Map<String,Integer> hitMap = fs.getBodyPartHit();
     System.out.println("How many times each body part was hit: " + hitMap);

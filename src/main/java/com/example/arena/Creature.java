@@ -1,5 +1,6 @@
 package com.example.arena;
 
+import java.util.List;
 import java.util.Random;
 
 public abstract class Creature implements Fightable {
@@ -14,7 +15,7 @@ public abstract class Creature implements Fightable {
   private Integer lifePoints;
   private CreatureType creatureType;
 
-  private Random random = new Random();
+  private RandomGenerator randomGenerator = new RandomGenerator();
 
   public Creature(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
                   Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
@@ -86,6 +87,10 @@ public abstract class Creature implements Fightable {
     this.endurance = endurance;
   }
 
+  public void setRandomGenerator(RandomGenerator randomGenerator) {
+    this.randomGenerator = randomGenerator;
+  }
+
   public void setNumberOfAttacks(Integer numberOfAttacks) {
     this.numberOfAttacks = numberOfAttacks;
   }
@@ -119,7 +124,7 @@ public abstract class Creature implements Fightable {
   }
 
   int random(int min, int max) {
-    return min + this.random.nextInt(max + 1 - min);
+    return this.randomGenerator.random(min,max);
   }
 
   @Override

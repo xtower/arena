@@ -16,11 +16,11 @@ public enum BodyPart {
     this.dmgBonus = dmgBonus;
   }
 
-  public int getHitProbability(){
+  public int getHitProbability() {
     return this.hitProbability;
   }
 
-  public int getDmgBonus(){
+  public int getDmgBonus() {
     return this.dmgBonus;
   }
-  }
+}
