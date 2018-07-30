@@ -14,6 +14,7 @@ public abstract class Creature implements Fightable {
   private Integer numberOfDodges;
   private Integer lifePoints;
   private CreatureType creatureType;
+  private Equipment equipment;
 
   private RandomGenerator randomGenerator = new RandomGenerator();
 
@@ -29,6 +30,8 @@ public abstract class Creature implements Fightable {
     this.numberOfDodges = numberOfDodges;
     this.lifePoints = lifePoints;
     this.creatureType = creatureType;
+
+    equipment = new Equipment();
   }
 
   public Integer getStrength() {
@@ -119,6 +122,7 @@ public abstract class Creature implements Fightable {
            "\nnumberOfDodges=" + numberOfDodges +
            "\nlifePoints=" + lifePoints +
            "\ncreatureType='" + creatureType + '\'' +
+           "\nequipment : " + equipment.toString() +
            "\nsuper='" + super.toString() +
            "}\n\n";
   }
@@ -197,4 +201,10 @@ public abstract class Creature implements Fightable {
 
     throw new NoBodyPartHitArenaException();
   }
+
+  public void equip(ArmourType item){
+    equipment.add(item);
+  }
+
+
 }

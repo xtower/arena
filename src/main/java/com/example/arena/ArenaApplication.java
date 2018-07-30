@@ -2,6 +2,7 @@ package com.example.arena;
 
 import com.sun.javafx.collections.MappingChange;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +28,8 @@ public class ArenaApplication {
 
 
   public static void main(String[] args) {
+
+
     //Creature kaziu = new Human(1,1,1,1,1, 1, 1,1);
 
     CreaturesFactory cf = new CreaturesFactory();

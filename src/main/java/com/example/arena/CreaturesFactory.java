@@ -33,7 +33,29 @@ public class CreaturesFactory {
   }
 
   Creature generateRandomCreature() {
-    return generate(randomCreatureType(), random(40, 60), random(1, 9));
+    Creature randomCreature = generate(randomCreatureType(), random(40, 60), random(1, 9));
+
+    generateRandomEquipment(randomCreature);
+
+    return randomCreature;
+  }
+
+  private void generateRandomEquipment(Creature creature) {
+    int maxItems = ArmourType.values().length;
+
+    List<ArmourType> availableItems = new ArrayList<>();
+
+    for (ArmourType a : ArmourType.values()) {
+      availableItems.add(a);
+    }
+
+    int r = random(0, maxItems);
+
+    for (int i = 0; i < r; i++) {
+      int rr = random(0, availableItems.size() - 1);
+      creature.equip(availableItems.get(rr));
+      availableItems.remove(rr);
+    }
   }
 
   int random(int min, int max) {
