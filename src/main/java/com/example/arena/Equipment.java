@@ -1,9 +1,11 @@
 package com.example.arena;
 
+import javafx.print.Collation;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+
 
 public class Equipment {
 
@@ -19,6 +21,18 @@ public class Equipment {
 
   public boolean has (ArmourType item){
     return itemsList.contains(item);
+  }
+
+  public Collection<ArmourType> getProtectionItems(BodyPart bodyPart){
+    List<ArmourType> armourItems = new ArrayList<>();
+
+    for(ArmourType a : itemsList){
+      if(a.isProtecting(bodyPart)){
+        armourItems.add(a);
+      }
+    }
+
+    return armourItems;
   }
 
   public String toString(){

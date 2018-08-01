@@ -5,8 +5,9 @@ import jdk.nashorn.internal.objects.annotations.Constructor;
 public class AttackResult {
 
   private BodyPart bodyPart;
-  private int damage;
+  private int potentialDamage;
   private int whichAttack;
+  private int actualDamage;
 
   /**
    *
@@ -16,7 +17,7 @@ public class AttackResult {
    */
   public AttackResult(BodyPart bodyPart, int damage, int whichAttack) {
     this.bodyPart = bodyPart;
-    this.damage = damage;
+    this.potentialDamage = damage;
     this.whichAttack = whichAttack;
   }
 
@@ -24,11 +25,19 @@ public class AttackResult {
     return bodyPart;
   }
 
-  public int getDamage() {
-    return damage;
-  }
-
   public int getWhichAttack() {
     return whichAttack;
+  }
+
+  public int getPotentialDamage() {
+    return potentialDamage;
+  }
+
+  public int getActualDamage() {
+    return actualDamage;
+  }
+
+  public void setActualDamage(int actualDamage) {
+    this.actualDamage = actualDamage;
   }
 }

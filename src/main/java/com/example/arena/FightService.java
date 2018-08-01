@@ -16,11 +16,11 @@ public class FightService {
     AttackResult ar;
 
     ar = attack(attacker, defender);
-    checkIfMostPowerfullHit(attacker, ar.getDamage());
+    checkIfMostPowerfullHit(attacker, ar.getPotentialDamage());
 
     if (defender.isAlive()) {
       ar = attack(defender, attacker);
-      checkIfMostPowerfullHit(defender, ar.getDamage());
+      checkIfMostPowerfullHit(defender, ar.getPotentialDamage());
     }
 
     String name;

@@ -28,16 +28,24 @@ public class CreatureTest {
     int dmg;
 
     when(testRandomGenerator.random(anyInt(),anyInt())).thenReturn(10);
-    dmg = c.dodge(6,null);
+    dmg = c.dodge(new AttackResult(BodyPart.HEAD,20, 1));
 
-    assertTrue("Expected dodge is 3 but was : " + dmg, dmg == 3 );
+    assertTrue("Expected dodge is 17 but was : " + dmg, dmg == 17 );
 
     when(testRandomGenerator.random(anyInt(),anyInt())).thenReturn(1);
-    dmg = c.dodge(6,null);
+    dmg = c.dodge(new AttackResult(BodyPart.HEAD,20, 1));
 
     assertTrue("Expected dodge is 0 but was : " + dmg, dmg == 0 );
   }
 
+  @Test
+  public void testEquipment() {
+    Creature c = new Human(3,3,3,3,3,3,3, 30);
 
+    c.equip(ArmourType.GLOVES);
+
+    //PowerMockito.mockStatic(RandomUtil.class);
+    //Mockito.when(RandomUtil.random(1,10)).thenReturn(5);
+  }
 
 }

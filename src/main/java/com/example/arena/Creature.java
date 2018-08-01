@@ -1,7 +1,7 @@
 package com.example.arena;
 
-import java.util.List;
-import java.util.Random;
+import java.util.Collection;
+
 
 public abstract class Creature implements Fightable {
 
@@ -128,7 +128,7 @@ public abstract class Creature implements Fightable {
   }
 
   int random(int min, int max) {
-    return this.randomGenerator.random(min,max);
+    return this.randomGenerator.random(min, max);
   }
 
   @Override
@@ -162,14 +162,17 @@ public abstract class Creature implements Fightable {
 
   }
 
-  @Override
-  public int dodge(int potentialDamage, Creature attacker) {
+  public int dodge(AttackResult attackResult) {
     if (this.initiative > random(1, 10)) {
       System.out.println("Dodge Successfull!");
       return 0;
     }
 
-    int dmg = potentialDamage - this.endurance;
+    int
+        dmg =
+        attackResult.getPotentialDamage()
+        - this.endurance
+        - calculateProtection(this.equipment, attackResult.getBodyPart());
 
     if (dmg > 0) {
       this.lifePoints -= dmg;
@@ -179,7 +182,6 @@ public abstract class Creature implements Fightable {
       System.out.println("Creature is Dead");
     }
 
-    //troch nie wiem po co zwracam dmg...
     return dmg > 0 ? dmg : 0;
   }
 
@@ -202,9 +204,20 @@ public abstract class Creature implements Fightable {
     throw new NoBodyPartHitArenaException();
   }
 
-  public void equip(ArmourType item){
+  public void equip(ArmourType item) {
     equipment.add(item);
   }
 
 
+  private int calculateProtection(Equipment equipment, BodyPart bodyPartHit) {
+    int protection = 0;
+
+    Collection<ArmourType> armor = equipment.getProtectionItems(bodyPartHit);
+
+    for (ArmourType a : armor) {
+      protection += random(a.getMinProtection(), a.getMaxProtection());
+    }
+
+    return protection;
+  }
 }
