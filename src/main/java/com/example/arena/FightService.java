@@ -2,7 +2,9 @@ package com.example.arena;
 
 import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FightService {
@@ -24,9 +26,9 @@ public class FightService {
     }
 
     String name;
-    if(ar.getWhichAttack() == 1){
+    if (ar.getWhichAttack() == 1) {
       name = ar.getBodyPart().toString();
-    } else if (ar.getWhichAttack() == 2){
+    } else if (ar.getWhichAttack() == 2) {
       name = "NOT SPECIFIED";
     } else {
       name = "MISS";
@@ -45,6 +47,16 @@ public class FightService {
 
   public Map<String, Integer> getBodyPartHit() {
     return bodyPartHit;
+  }
+
+  public Collection<Collection<Creature>> getDuelPairs(Collection<Creature> creatures) {
+    Collection<Collection<Creature>> result;
+
+    for(int i = 0; i < creatures.size(); i++){
+
+    }
+
+    return result;
   }
 
   private AttackResult attack(Creature attacker, Creature defender) {
