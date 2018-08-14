@@ -20,23 +20,25 @@ public class Pair<T>{
 
     Pair<?> pair = (Pair<?>) o;
 
-    if (left != null ? !left.equals(pair.left) : pair.left != null) {
-      return false;
+    if (left.equals(pair.left) && right.equals(pair.right)
+        || left.equals(pair.right) && right.equals(pair.left)){
+      return true;
     }
-    return right != null ? right.equals(pair.right) : pair.right == null;
+    return false;
   }
 
   @Override
   public int hashCode() {
-    int result = left != null ? left.hashCode() : 0;
-    result = 31 * result + (right != null ? right.hashCode() : 0);
+    int result = 0;
+    result += (left != null ? left.hashCode() : 0);
+    result += (right != null ? right.hashCode() : 0);
+
     return result;
   }
 
   public static void main(String[] args) {
-    Pair<Creature> pair = new Pair<>(
-        new Human(1,2,2,2,2,2,2,2),
-        new Troll(1,2,2,2,2,2,2,2)
-        );
+
+
+
   }
 }

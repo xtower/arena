@@ -56,7 +56,7 @@ public class FightService {
 
     }
 
-    return result;
+    return null;
   }
 
   private AttackResult attack(Creature attacker, Creature defender) {
