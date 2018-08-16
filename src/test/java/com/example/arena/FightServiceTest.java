@@ -16,26 +16,31 @@ import java.util.List;
 public class FightServiceTest {
 
   @Test
-  public void getDuelPairs() throws Exception {
+  public void getPairs() throws Exception {
     //given
     FightService fightService = new FightService();
 
     CreaturesFactory creaturesFactory = new CreaturesFactory();
 
-    Collection<Creature> creatures = creaturesFactory.randomCreatureList(4);
+    List<Creature> creatures = creaturesFactory.randomCreatureList(6);
 
 
-    Collection<Collection<Creature>> duelPairs;
+    Collection<Pair<Creature>> pairs;
 
     //when
-    duelPairs = fightService.getDuelPairs(creatures);
+    pairs = fightService.getPairs(creatures);
 
     //then
     assertTrue("Number of combinations is not OK (expected: "
                + pairCombinations(creatures.size(),2)
-               + " but is: " + duelPairs.size(),
-               pairCombinations(creatures.size(),2) == duelPairs.size());
+               + " but is: " + pairs.size(),
+               pairCombinations(creatures.size(),2) == pairs.size());
 
+    for(Pair<Creature> p : pairs){
+      System.out.println(p);
+    }
+
+    System.out.println("Ilosc Stworow: " + creatures.size() + " Ilosc par: " + pairs.size());
   }
 
 
@@ -46,11 +51,12 @@ public class FightServiceTest {
       result *= i;
     }
 
+    System.out.println("Factorial z " + number + " to " + result);
     return result; 
   }
 
   private static int pairCombinations(int elementCount, int combinationsOf){
-    return ((factorial(elementCount)) / (factorial(combinationsOf) * (elementCount - combinationsOf)));
+    return ((factorial(elementCount)) / (factorial(combinationsOf) * factorial(elementCount - combinationsOf)));
   }
 
 }

@@ -2,8 +2,10 @@ package com.example.arena;
 
 import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -49,14 +51,16 @@ public class FightService {
     return bodyPartHit;
   }
 
-  public Collection<Collection<Creature>> getDuelPairs(Collection<Creature> creatures) {
-    Collection<Collection<Creature>> result;
+  public Collection<Pair<Creature>> getPairs(List<Creature> creatures) {
+    Collection<Pair<Creature>> result = new HashSet<Pair<Creature>>();
 
     for(int i = 0; i < creatures.size(); i++){
-
+      for(int ii = i+1; ii < creatures.size(); ii++){
+        result.add(new Pair<Creature>(creatures.get(i),creatures.get(ii)));
+      }
     }
 
-    return null;
+    return result;
   }
 
   private AttackResult attack(Creature attacker, Creature defender) {

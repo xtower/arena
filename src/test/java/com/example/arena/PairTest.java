@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 
 public class PairTest {
 
@@ -11,12 +14,14 @@ public class PairTest {
     //Given
     Pair<Creature>[] ret = new Pair[3];
 
-    Creature c1 = new Human(1,2,2,2,2,2,2,2);
-    Creature c2 = new Troll(1,2,2,2,2,2,2,2);
+    CreatureNameGenerator cng = new CreatureNameGenerator();
+
+    Creature c1 = new Human(1,2,2,2,2,2,2,2,cng.getRandomName());
+    Creature c2 = new Troll(1,2,2,2,2,2,2,2,cng.getRandomName());
 
     ret[0] = new Pair<>(
-        new Human(1,2,2,2,2,2,2,2),
-        new Troll(1,2,2,2,2,2,2,2)
+        new Human(1,2,2,2,2,2,2,2,cng.getRandomName()),
+        new Troll(1,2,2,2,2,2,2,2,cng.getRandomName())
     );
 
     ret[1] = new Pair(c1,c2);
@@ -55,5 +60,6 @@ public class PairTest {
     assertTrue(testPairs[1].hashCode() == testPairs[2].hashCode());
 
   }
+
 
 }

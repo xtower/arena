@@ -2,9 +2,11 @@ package com.example.arena;
 
 import jdk.nashorn.internal.objects.annotations.Constructor;
 
+import java.util.Optional;
+
 public class AttackResult {
 
-  private BodyPart bodyPart;
+  private Optional<BodyPart> bodyPart;
   private int potentialDamage;
   private int whichAttack;
   private int actualDamage;
@@ -15,13 +17,13 @@ public class AttackResult {
    * @param damage
    * @param whichAttack
    */
-  public AttackResult(BodyPart bodyPart, int damage, int whichAttack) {
+  public AttackResult(Optional<BodyPart> bodyPart, int damage, int whichAttack) {
     this.bodyPart = bodyPart;
     this.potentialDamage = damage;
     this.whichAttack = whichAttack;
   }
 
-  public BodyPart getBodyPart() {
+  public Optional<BodyPart> getBodyPart() {
     return bodyPart;
   }
 

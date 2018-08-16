@@ -1,6 +1,7 @@
 package com.example.arena;
 
 import java.util.Collection;
+import java.util.Optional;
 
 
 public abstract class Creature implements Fightable {
@@ -15,12 +16,13 @@ public abstract class Creature implements Fightable {
   private Integer lifePoints;
   private CreatureType creatureType;
   private Equipment equipment;
+  private String name;
 
   private RandomGenerator randomGenerator = new RandomGenerator();
 
   public Creature(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
                   Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
-                  Integer lifePoints, CreatureType creatureType) {
+                  Integer lifePoints, CreatureType creatureType, String name) {
     this.strength = strength;
     this.dexterity = dexterity;
     this.initiative = initiative;
@@ -31,7 +33,22 @@ public abstract class Creature implements Fightable {
     this.lifePoints = lifePoints;
     this.creatureType = creatureType;
 
+    this.name = name;
+
     equipment = new Equipment();
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @Override
+  public String toString(){
+    return this.name + "[" + this.creatureType + "]";
   }
 
   public Integer getStrength() {
@@ -110,9 +127,8 @@ public abstract class Creature implements Fightable {
     this.creatureType = creatureType;
   }
 
-  @Override
-  public String toString() {
-    return "Creature{" +
+  public String toStringFull() {
+    return "Creature " + toString() + " {" +
            "\nstrength=" + strength +
            "\ndexterity=" + dexterity +
            "\ninitiative=" + initiative +
@@ -133,32 +149,26 @@ public abstract class Creature implements Fightable {
 
   @Override
   public AttackResult attack(Creature target) {
-    BodyPart damagedBodyPart;
+    //BodyPart damagedBodyPart;
 
-    int potentialDmg;
+    int potentialDmg = 0;
+    int attack = 0;
 
-    try {
+    Optional<BodyPart> damagedBodyPart = target.hitWhat();
+
+    if(damagedBodyPart.isPresent()){
+      attack = 1;
+      potentialDmg = this.strength + random(0, 3) + damagedBodyPart.get().getDmgBonus();
+    } else if(this.dexterity > random(1, 10)) {
       damagedBodyPart = target.hitWhat();
-
-      potentialDmg = this.strength + random(0, 3) + damagedBodyPart.getDmgBonus();
-      System.out.println(
-          "Creature was hit on the first try " + damagedBodyPart + " for: " + potentialDmg
-          + "damage");
-      return new AttackResult(damagedBodyPart, potentialDmg, 1);
-    } catch (ArenaException e) {
-      //hmmm
+      if(damagedBodyPart.isPresent()) {
+        attack = 2;
+        potentialDmg = this.strength + random(0, 3);
+      }
     }
 
-    if (this.dexterity > random(1, 10)) {
+    return new AttackResult(damagedBodyPart, potentialDmg, attack);
 
-      potentialDmg = this.strength + random(0, 3);
-      System.out.println("Creature was hit on the second try for: " + potentialDmg + "damage");
-      return new AttackResult(null, potentialDmg, 2);
-    }
-
-    System.out.println("Failed attack");
-
-    return new AttackResult(null, 0, 0);
 
   }
 
@@ -189,7 +199,7 @@ public abstract class Creature implements Fightable {
     return this.lifePoints > 0;
   }
 
-  public BodyPart hitWhat() throws NoBodyPartHitArenaException {
+  public Optional<BodyPart> hitWhat() throws NoBodyPartHitArenaException {
     int r = random(0, 99);
     int s = 0;
 
@@ -197,11 +207,11 @@ public abstract class Creature implements Fightable {
       s += p.getHitProbability();
 
       if (s >= r) {
-        return p;
+        return Optional.of(p);
       }
     }
 
-    throw new NoBodyPartHitArenaException();
+    return Optional.empty();
   }
 
   public void equip(ArmourType item) {
@@ -209,10 +219,14 @@ public abstract class Creature implements Fightable {
   }
 
 
-  private int calculateProtection(Equipment equipment, BodyPart bodyPartHit) {
+  private int calculateProtection(Equipment equipment, Optional<BodyPart> bodyPartHit) {
     int protection = 0;
 
-    Collection<ArmourType> armor = equipment.getProtectionItems(bodyPartHit);
+    if(!bodyPartHit.isPresent()){
+      return protection;
+    }
+
+    Collection<ArmourType> armor = equipment.getProtectionItems(bodyPartHit.get());
 
     for (ArmourType a : armor) {
       protection += random(a.getMinProtection(), a.getMaxProtection());

@@ -36,6 +36,13 @@ public class Pair<T>{
     return result;
   }
 
+  @Override
+  public String toString() {
+    return "Pair:" +
+           "\na= " + left +
+           "\nb= " + right;
+  }
+
   public static void main(String[] args) {
 
 

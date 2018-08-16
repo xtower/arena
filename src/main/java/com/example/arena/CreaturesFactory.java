@@ -7,21 +7,22 @@ import java.util.Random;
 public class CreaturesFactory {
 
   private Random random = new Random();
+  private CreatureNameGenerator cng = new CreatureNameGenerator();
 
   Creature generate(CreatureType creatureType, int lifePoints, int value) {
     switch (creatureType) {
       case ELF:
-        return new Elf(value, value, value, value, value, value, value, lifePoints);
+        return new Elf(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
       case ORC:
-        return new Orc(value, value, value, value, value, value, value, lifePoints);
+        return new Orc(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
       case DWARF:
-        return new Dwarf(value, value, value, value, value, value, value, lifePoints);
+        return new Dwarf(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
       case HUMAN:
-        return new Human(value, value, value, value, value, value, value, lifePoints);
+        return new Human(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
       case TROLL:
-        return new Troll(value, value, value, value, value, value, value, lifePoints);
+        return new Troll(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
       case HALFLING:
-        return new Halfling(value, value, value, value, value, value, value, lifePoints);
+        return new Halfling(value, value, value, value, value, value, value, lifePoints,cng.getRandomName());
     }
 
     return null;
@@ -62,7 +63,7 @@ public class CreaturesFactory {
     return min + this.random.nextInt(max + 1 - min);
   }
 
-  List<Creature> randomCreatureList(int listSize) {
+  public List<Creature> randomCreatureList(int listSize) {
     List<Creature> creaturesList = new ArrayList<>();
 
     for (int i = 0; i < listSize; i++) {

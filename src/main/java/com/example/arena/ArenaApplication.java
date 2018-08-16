@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -94,21 +95,22 @@ public class ArenaApplication {
     System.out.println(creature2);
     */
 
+    CreatureNameGenerator cng = new CreatureNameGenerator();
     //Test losowania czesci ciala
-    Creature c = new Troll(10, 9, 6, 6, 6, 6, 6, 100);
+    Creature c = new Troll(10, 9, 6, 6, 6, 6, 6, 100, cng.getRandomName());
 
     Map<String, Integer> results = new HashMap<String, Integer>();
 
     for (int i = 0; i < 10000; i++) {
-      //System.out.print("Tura: " + i + " : ");
-      try {
-        BodyPart bp = c.hitWhat();
-        //System.out.println(bp);
-        upMap(results, bp.toString());
-      } catch (NoBodyPartHitArenaException e) {
-        //System.out.println("NO HIT!");
-        upMap(results, "no hit");
-      }
+
+        Optional<BodyPart> bp = c.hitWhat();
+
+        if(bp.isPresent()){
+          upMap(results, bp.get().toString());
+        } else {
+          upMap(results, "no hit");
+        }
+
     }
 
     System.out.println(results);

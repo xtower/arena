@@ -5,8 +5,8 @@ public class Human extends Creature {
 
   public Human(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
                Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
-               Integer lifePoints) {
+               Integer lifePoints, String name) {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
-          lifePoints, CreatureType.HUMAN);
+          lifePoints, CreatureType.HUMAN, name);
   }
 }
