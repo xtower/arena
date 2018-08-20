@@ -8,4 +8,18 @@ public class Halfling extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.HALFLING, name);
   }
+
+  private Halfling(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Halfling c = new Halfling();
+
+    c.copy(this);
+
+    return c;
+  }
+
 }

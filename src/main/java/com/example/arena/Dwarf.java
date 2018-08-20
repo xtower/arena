@@ -8,4 +8,18 @@ public class Dwarf extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.DWARF, name);
   }
+
+
+  private Dwarf(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Dwarf c = new Dwarf();
+
+    c.copy(this);
+
+    return c;
+  }
 }

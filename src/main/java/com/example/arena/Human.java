@@ -9,4 +9,17 @@ public class Human extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.HUMAN, name);
   }
+
+  private Human(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Human c = new Human();
+
+    c.copy(this);
+
+    return c;
+  }
 }

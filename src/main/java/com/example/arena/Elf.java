@@ -9,4 +9,17 @@ public class Elf extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.ELF, name);
   }
+
+  private Elf(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Elf c = new Elf();
+
+    c.copy(this);
+
+    return c;
+  }
 }

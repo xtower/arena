@@ -20,6 +20,24 @@ public abstract class Creature implements Fightable {
 
   private RandomGenerator randomGenerator = new RandomGenerator();
 
+  Creature(){}
+
+  public void copy(Creature c){
+    this.strength = strength;
+    this.dexterity = dexterity;
+    this.initiative = initiative;
+    this.velocity = velocity;
+    this.endurance = endurance;
+    this.numberOfAttacks = numberOfAttacks;
+    this.numberOfDodges = numberOfDodges;
+    this.lifePoints = lifePoints;
+    this.creatureType = creatureType;
+
+    this.name = name;
+
+    this.equipment = new Equipment(c.getEquipment());
+  }
+
   public Creature(Integer strength, Integer dexterity, Integer initiative, Integer velocity,
                   Integer endurance, Integer numberOfAttacks, Integer numberOfDodges,
                   Integer lifePoints, CreatureType creatureType, String name) {
@@ -37,6 +55,8 @@ public abstract class Creature implements Fightable {
 
     equipment = new Equipment();
   }
+
+  public abstract Creature duplicate();
 
   public String getName() {
     return name;
@@ -113,6 +133,14 @@ public abstract class Creature implements Fightable {
 
   public void setNumberOfAttacks(Integer numberOfAttacks) {
     this.numberOfAttacks = numberOfAttacks;
+  }
+
+  public Equipment getEquipment(){
+    return this.equipment;
+  }
+
+  public void setEquipment(Equipment e){
+    this.equipment = e;
   }
 
   public void setNumberOfDodges(Integer numberOfDodges) {

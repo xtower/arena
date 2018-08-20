@@ -9,4 +9,18 @@ public class Orc extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.ORC, name);
   }
+
+  private Orc(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Orc c = new Orc();
+
+    c.copy(this);
+
+    return c;
+  }
+
 }

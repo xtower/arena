@@ -11,6 +11,17 @@ public class Equipment {
 
   private List<ArmourType> itemsList = new ArrayList<>();
 
+  public Equipment(){
+
+  }
+
+  public Equipment(Equipment e){
+
+    for(ArmourType t : e.itemsList){
+      this.add(t);
+    }
+  }
+
   public void add(ArmourType item){
     if(has(item)){
       throw new CantEquipDuplicateItemArenaException();

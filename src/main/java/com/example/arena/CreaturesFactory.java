@@ -28,6 +28,31 @@ public class CreaturesFactory {
     return null;
   }
 
+  Creature duplicate(Creature c) {
+    switch (c.getCreatureType()) {
+      case ELF:
+        return new Elf(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                       c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+      case ORC:
+        return new Orc(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                       c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+      case DWARF:
+        return new Dwarf(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                         c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+      case HUMAN:
+        return new Human(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                         c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+      case TROLL:
+        return new Troll(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                         c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+      case HALFLING:
+        return new Halfling(c.getStrength(),c.getDexterity(),c.getInitiative(),c.getVelocity(),c.getEndurance(),c.getNumberOfAttacks(),
+                            c.getNumberOfDodges(),c.getLifePoints(), c.getName());
+    }
+
+    return null;
+  }
+
   CreatureType randomCreatureType() {
     int r = random.nextInt(CreatureType.values().length);
     return CreatureType.values()[r];

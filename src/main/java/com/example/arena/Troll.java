@@ -8,4 +8,17 @@ public class Troll extends Creature {
     super(strength, dexterity, initiative, velocity, endurance, numberOfAttacks, numberOfDodges,
           lifePoints, CreatureType.TROLL, name);
   }
+
+  private Troll(){
+    this.setCreatureType(CreatureType.TROLL);
+  }
+
+  @Override
+  public Creature duplicate() {
+    Troll c = new Troll();
+
+    c.copy(this);
+
+    return c;
+  }
 }
