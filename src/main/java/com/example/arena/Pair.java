@@ -43,6 +43,13 @@ public class Pair<T>{
            "\nb= " + right;
   }
 
+  public T getLeft() {
+    return left;
+  }
+
+  public T getRight() {
+    return right;
+  }
 
   public static void main(String[] args) {
 
