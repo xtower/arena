@@ -1,6 +1,7 @@
 package com.example.arena;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +18,10 @@ public class ArenaApplicationThread {
     CreaturesFactory creaturesFactory = new CreaturesFactory();
     FightService fightService = new FightService();
 
-    List<Creature> creatures = creaturesFactory.randomCreatureList(100);
+    List<Creature> creatures = creaturesFactory.randomCreatureList(10);
     Collection<Pair<Creature>> pairs = fightService.getPairs(creatures);
 
-    ExecutorService executor = Executors.newFixedThreadPool(4);
+    ExecutorService executor = Executors.newFixedThreadPool(2);
 
     List<Callable<FightResult>> fights = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class ArenaApplicationThread {
       List<Future<FightResult>> futures = executor.invokeAll(fights);
 
 
-      List<FightResult> fr = futures.stream().map(x -> x.get()).collect(Collectors.toList());
+      //List<FightResult> fr = futures.stream().map(x -> x.get()).collect(Collectors.toList());
       for (Future<FightResult> f : futures){
         FightResult r = f.get();
         Integer v = results.get(r.getWinner());
@@ -47,9 +48,10 @@ public class ArenaApplicationThread {
       e.printStackTrace();
     }
 
-    results.stream(){
-
+    for(Creature c : results.keySet()){
+      System.out.println("Creature: " + c + " wygral " + results.get(c) + " razy");
     }
+
     executor.shutdown();
   }
 }
