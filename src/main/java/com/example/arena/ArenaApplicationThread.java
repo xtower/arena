@@ -1,7 +1,6 @@
 package com.example.arena;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 public class ArenaApplicationThread {
 
@@ -26,7 +24,7 @@ public class ArenaApplicationThread {
     List<Callable<FightResult>> fights = new ArrayList<>();
 
     for(Pair<Creature> p : pairs){
-      fights.add(new FightThread(p));
+      fights.add(new FightCallable(p));
     }
 
     Map<Creature,Integer> results = new HashMap<>();

@@ -3,16 +3,17 @@ package com.example.arena;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-public class FightThread implements Callable<FightResult> {
+public class FightCallable implements Callable<FightResult> {
   Pair<Creature> originalPair;
   Pair<Creature> duplicatePair;
 
-  FightThread(Pair<Creature> p){
+  FightCallable(Pair<Creature> p){
     this.originalPair = p;
 
-    Pair<Creature> duplicatePair = new Pair<>(this.originalPair.getLeft().duplicate(),this.originalPair.getRight().duplicate());
+    this.duplicatePair = new Pair<>(this.originalPair.getLeft().duplicate(),this.originalPair.getRight().duplicate());
   }
 
+  @Override
   public FightResult call() throws  InterruptedException{
     FightService fs = new FightService();
     FightResult fr = new FightResult();
