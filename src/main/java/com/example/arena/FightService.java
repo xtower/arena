@@ -16,14 +16,19 @@ public class FightService {
   Map<String, Integer> bodyPartHit = new HashMap<>();
 
 
-  public void fight(Creature attacker, Creature defender) {
+  public int fight(Creature attacker, Creature defender) {
     AttackResult ar;
 
+    int ret = -1;
+
     ar = attack(attacker, defender);
+    ret = defender.dodge(ar);
+
     checkIfMostPowerfullHit(attacker, ar.getPotentialDamage());
 
     if (defender.isAlive()) {
       ar = attack(defender, attacker);
+      ret = defender.dodge(ar);
       checkIfMostPowerfullHit(defender, ar.getPotentialDamage());
     }
 
@@ -37,6 +42,7 @@ public class FightService {
     }
     countBodyPartHit(name);
 
+    return ret;
   }
 
   public Creature getMostPowerfulHitCreature() {

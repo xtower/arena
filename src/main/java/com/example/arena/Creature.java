@@ -23,17 +23,17 @@ public abstract class Creature implements Fightable {
   Creature(){}
 
   public void copy(Creature c){
-    this.strength = strength;
-    this.dexterity = dexterity;
-    this.initiative = initiative;
-    this.velocity = velocity;
-    this.endurance = endurance;
-    this.numberOfAttacks = numberOfAttacks;
-    this.numberOfDodges = numberOfDodges;
-    this.lifePoints = lifePoints;
-    this.creatureType = creatureType;
+    this.strength = c.strength;
+    this.dexterity = c.dexterity;
+    this.initiative = c.initiative;
+    this.velocity = c.velocity;
+    this.endurance = c.endurance;
+    this.numberOfAttacks = c.numberOfAttacks;
+    this.numberOfDodges = c.numberOfDodges;
+    this.lifePoints = new Integer(c.lifePoints);
+    this.creatureType = c.creatureType;
 
-    this.name = name;
+    this.name = c.name;
 
     this.equipment = new Equipment(c.getEquipment());
   }

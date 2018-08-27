@@ -2,6 +2,7 @@ package com.example.arena;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 public class ArenaApplicationThread {
 
@@ -16,10 +18,10 @@ public class ArenaApplicationThread {
     CreaturesFactory creaturesFactory = new CreaturesFactory();
     FightService fightService = new FightService();
 
-    List<Creature> creatures = creaturesFactory.randomCreatureList(10);
+    List<Creature> creatures = creaturesFactory.randomCreatureList(9);
     Collection<Pair<Creature>> pairs = fightService.getPairs(creatures);
 
-    ExecutorService executor = Executors.newFixedThreadPool(2);
+    ExecutorService executor = Executors.newFixedThreadPool(3);
 
     List<Callable<FightResult>> fights = new ArrayList<>();
 
@@ -46,8 +48,15 @@ public class ArenaApplicationThread {
       e.printStackTrace();
     }
 
-    for(Creature c : results.keySet()){
-      System.out.println("Creature: " + c + " wygral " + results.get(c) + " razy");
+    results.values().forEach(System.out::println);
+
+    List<Map.Entry<Creature, Integer>> resutlSorted = results.entrySet().stream()
+        .sorted(Comparator.comparing(c -> c.getValue()))
+        .peek(e -> System.out.println(e.getValue()))
+        .collect(Collectors.toList());
+
+    for(Map.Entry<Creature,Integer> e : resutlSorted){
+      System.out.println("Creature: " + e.getKey() + " wygral " + e.getValue() + " razy");
     }
 
     executor.shutdown();

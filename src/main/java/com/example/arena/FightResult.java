@@ -22,7 +22,7 @@ public class FightResult {
   }
 
   public void log(String l){
-    this.log = l + "/n";
+    this.log += l + "/n";
   }
 
   public String getLog(){
