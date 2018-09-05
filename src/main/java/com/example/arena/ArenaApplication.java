@@ -1,7 +1,5 @@
 package com.example.arena;
 
-import com.sun.javafx.collections.MappingChange;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +10,10 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class ArenaApplication {
 
   public static void upMap(Map<String, Integer> map, String key) {
@@ -29,8 +30,10 @@ public class ArenaApplication {
 
 
   public static void main(String[] args) {
+    SpringApplication.run(ArenaApplication.class, args);
+  }
 
-
+  public static void runApp(){
     //Creature kaziu = new Human(1,1,1,1,1, 1, 1,1);
 
     CreaturesFactory cf = new CreaturesFactory();
@@ -103,13 +106,13 @@ public class ArenaApplication {
 
     for (int i = 0; i < 10000; i++) {
 
-        Optional<BodyPart> bp = c.hitWhat();
+      Optional<BodyPart> bp = c.hitWhat();
 
-        if(bp.isPresent()){
-          upMap(results, bp.get().toString());
-        } else {
-          upMap(results, "no hit");
-        }
+      if(bp.isPresent()){
+        upMap(results, bp.get().toString());
+      } else {
+        upMap(results, "no hit");
+      }
 
     }
 
