@@ -1,5 +1,7 @@
 package com.example.arena;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -18,7 +20,8 @@ public abstract class Creature implements Fightable {
   private Equipment equipment;
   private String name;
 
-  private RandomGenerator randomGenerator = new RandomGenerator();
+  @Autowired
+  private RandomGenerator randomGenerator; // = new RandomGenerator();
 
   Creature(){}
 

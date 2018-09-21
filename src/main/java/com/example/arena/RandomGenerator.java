@@ -1,7 +1,10 @@
 package com.example.arena;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component
 public class RandomGenerator {
   private Random random = new Random();
 
