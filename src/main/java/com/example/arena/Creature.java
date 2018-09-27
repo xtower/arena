@@ -2,10 +2,12 @@ package com.example.arena;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.Getter;
+
 import java.util.Collection;
 import java.util.Optional;
 
-
+@Getter
 public abstract class Creature implements Fightable {
 
   private Integer strength;
@@ -72,62 +74,6 @@ public abstract class Creature implements Fightable {
   @Override
   public String toString(){
     return this.name + "[" + this.creatureType + "]";
-  }
-
-  public Integer getStrength() {
-    return strength;
-  }
-
-  public Integer getDexterity() {
-    return dexterity;
-  }
-
-  public Integer getInitiative() {
-    return initiative;
-  }
-
-  public Integer getVelocity() {
-    return velocity;
-  }
-
-  public Integer getEndurance() {
-    return endurance;
-  }
-
-  public Integer getNumberOfAttacks() {
-    return numberOfAttacks;
-  }
-
-  public Integer getNumberOfDodges() {
-    return numberOfDodges;
-  }
-
-  public Integer getLifePoints() {
-    return lifePoints;
-  }
-
-  public CreatureType getCreatureType() {
-    return creatureType;
-  }
-
-  public void setStrength(Integer strength) {
-    this.strength = strength;
-  }
-
-  public void setDexterity(Integer dexterity) {
-    this.dexterity = dexterity;
-  }
-
-  public void setInitiative(Integer initiative) {
-    this.initiative = initiative;
-  }
-
-  public void setVelocity(Integer velocity) {
-    this.velocity = velocity;
-  }
-
-  public void setEndurance(Integer endurance) {
-    this.endurance = endurance;
   }
 
   public void setRandomGenerator(RandomGenerator randomGenerator) {

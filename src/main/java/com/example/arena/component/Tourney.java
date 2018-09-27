@@ -6,10 +6,13 @@ import com.example.arena.domain.TourneyState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Data
 public class Tourney {
   private TourneyState state = TourneyState.NOTINITIALIZED;
   private int capacity = 0;
@@ -23,6 +26,22 @@ public class Tourney {
     state = TourneyState.CREATED;
   }
 
+  public int getOccupied(){
+    return CreatureList.size();
+  }
+
+  public boolean canAddCreature(){
+    return capacity > getOccupied() ? true : false;
+  }
+
+  public TourneyState getState() {
+    return state;
+  }
+
+  public void setState(TourneyState state) {
+    this.state = state;
+  }
+
   public int getCapacity() {
     return capacity;
   }
@@ -31,19 +50,11 @@ public class Tourney {
     this.capacity = capacity;
   }
 
-  public int getOccupied(){
-    return CreatureList.size();
-  }
-
   public int getPoints() {
     return points;
   }
 
   public void setPoints(int points) {
     this.points = points;
-  }
-
-  public boolean canAddCreature(){
-    return capacity > getOccupied() ? true : false;
   }
 }

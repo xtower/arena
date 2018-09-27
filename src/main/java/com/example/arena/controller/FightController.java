@@ -1,9 +1,8 @@
 package com.example.arena.controller;
 
-import com.example.arena.BodyPart;
-import com.example.arena.Creature;
-import com.example.arena.Orc;
 import com.example.arena.component.Tourney;
+import com.example.arena.domain.TourneyState;
+import com.example.arena.exceptions.InvalidRequestException;
 import com.example.arena.request.CreateTourney;
 import com.example.arena.response.Points;
 import com.example.arena.response.TourneyInfo;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,6 +23,10 @@ public class FightController {
     TourneyInfo tourneyInfo = new TourneyInfo();
     tourneyInfo.capacity = tourney.getCapacity();
     tourneyInfo.occupied = tourney.getOccupied();
+
+    if(tourney.getState() == TourneyState.NOTINITIALIZED) {
+      throw new InvalidRequestException();
+    }
     return tourneyInfo;
   }
 
